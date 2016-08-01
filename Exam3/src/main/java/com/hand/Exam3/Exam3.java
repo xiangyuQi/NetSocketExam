@@ -1,13 +1,16 @@
 package com.hand.Exam3;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -120,12 +123,13 @@ public class Exam3 {
 		obj.addProperty("low", Double.parseDouble(low));
 		
 		try {
-			FileWriter fw = new FileWriter("JSONDATA.json");
-			BufferedWriter writer = new BufferedWriter(fw);
-			writer.write(obj.toString());
+			File file =  new File("JSONDATA.json");
+			FileOutputStream fos = new FileOutputStream(file);
+			BufferedOutputStream writer = new BufferedOutputStream(fos);
+			writer.write(obj.toString().getBytes("UTF-8"));
 			writer.flush();
 			writer.close();
-			fw.close();
+			fos.close();
 			System.out.println("json格式保存成功,在当前项目根目录下,文件名为JSONDATA.xml");
 		} catch (IOException e) {
 			e.printStackTrace();
